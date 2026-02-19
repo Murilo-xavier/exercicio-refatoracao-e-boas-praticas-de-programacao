@@ -4,8 +4,8 @@ public class CalculadoraDeBonus {
 
     public double calcularBonusAnual (Funcionario funcionario){
         double bonus = 0.0;
-        
-        boolean tempoMinimoComprido = funcionario.getTempoDeCasaMeses() > TEMPO_MINIMO_MES;
+
+        boolean tempoMinimoComprido = funcionario.getMesesTrabalhados() > TEMPO_MINIMO_MES;
         boolean metaBatidaFuncionario = funcionario.getMetaBatida() >= META_MINIMA;
         boolean semAdvertencia = !funcionario.isPossuiAdivertencia();
 
