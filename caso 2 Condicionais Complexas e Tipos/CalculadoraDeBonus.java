@@ -1,20 +1,18 @@
 public class CalculadoraDeBonus {
+    private int TEMPO_MINIMO_MES = 6;
+    private double META_MINIMA = 0.80;
 
-    public double calcularBonusAnual (Funcionario f){
-        if(f.getTempoDeCasaMeses() > 6 &&
-         f.getMetaBatida() >= 0.80 && 
-         !f.isPossuiAdivertencia()){
+    public double calcularBonusAnual (Funcionario funcionario){
+        double bonus = 0.0;
+        
+        boolean tempoMinimoComprido = funcionario.getTempoDeCasaMeses() > TEMPO_MINIMO_MES;
+        boolean metaBatidaFuncionario = funcionario.getMetaBatida() >= META_MINIMA;
+        boolean semAdvertencia = !funcionario.isPossuiAdivertencia();
 
-            if(f.getCargo().equals("DIRETOR")){
-                return f.getSalario() * 4.0 + 5000;
-
-            } else if (f.getCargo().equals("GERENTE")){
-                return f.getSalario() * 2.0 + 2000;
-            
-            } else if (f.getCargo().equals("OPERADOR")){
-                return f.getSalario() * 1;
-            }
+        if(tempoMinimoComprido && metaBatidaFuncionario && semAdvertencia){
+            TipoCargo cargo = funcionario.getCargo();
+            bonus = funcionario.getSalario() * cargo.getMultiplicador() + cargo.getBonusFixo();
         }
-        return 0.0;
+        return bonus;
     }
 }
