@@ -1,15 +1,12 @@
 public class Funcionario {
-    private String cargo; // DIRETOR, OPERADOR, GERENTE
+    private TipoCargo tipoCargo;
     private double salario;
     private int tempoDeCasaMeses;
     private double metaBatida; // PORCENTAGEM (0.0 A 1.0)
     private boolean possuiAdivertencia;
 
-    public String getCargo() {
-        return cargo;
-    }
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public TipoCargo getCargo() {
+        return tipoCargo;
     }
     public double getSalario() {
         return salario;
