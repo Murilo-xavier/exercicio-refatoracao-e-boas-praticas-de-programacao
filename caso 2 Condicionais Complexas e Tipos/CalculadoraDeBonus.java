@@ -6,7 +6,7 @@ public class CalculadoraDeBonus {
         double bonus = 0.0;
 
         boolean tempoMinimoComprido = funcionario.getMesesTrabalhados() > TEMPO_MINIMO_MES;
-        boolean metaBatidaFuncionario = funcionario.getMetaBatida() >= META_MINIMA;
+        boolean metaBatidaFuncionario = funcionario.getMetaParcialPorcentagem() >= META_MINIMA;
         boolean semAdvertencia = !funcionario.isPossuiAdivertencia();
 
         if(tempoMinimoComprido && metaBatidaFuncionario && semAdvertencia){

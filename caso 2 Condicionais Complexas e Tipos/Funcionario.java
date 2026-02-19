@@ -2,7 +2,7 @@ public class Funcionario {
     private TipoCargo tipoCargo;
     private double salario;
     private int MesesTrabalhados;
-    private double metaBatida; // PORCENTAGEM (0.0 A 1.0)
+    private double metaParcialPorcentagem;
     private boolean possuiAdivertencia;
 
     public TipoCargo getCargo() {
@@ -20,11 +20,11 @@ public class Funcionario {
     public void setMesesTrabalhados(int tempoDeCasaMeses) {
         this.MesesTrabalhados = tempoDeCasaMeses;
     }
-    public double getMetaBatida() {
-        return metaBatida;
+    public double getMetaParcialPorcentagem() {
+        return metaParcialPorcentagem;
     }
-    public void setMetaBatida(double metaBatida) {
-        this.metaBatida = metaBatida;
+    public void setMetaParcialPorcentagem(double metaBatida) {
+        this.metaParcialPorcentagem = metaBatida;
     }
     public boolean isPossuiAdivertencia() {
         return possuiAdivertencia;
