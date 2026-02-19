@@ -1,13 +1,24 @@
 public class CheckoutService {
+    private final double VALOR_MINIMO = 500.0;
+    private final int TEMPO_FIDELIDADE_MINIMO = 2;
 
-    public void finalizarCompra(Pedido p, TipoNavegador navegador) {
+    private boolean clienteElegivel(Pedido pedido, TipoNavegador navegador) {
 
-        if ((p.getValorTotal() > 500.00) && (p.getCliente().getTempoFidelidade() > 2) && (navegador == TipoNavegador.CHROME) && (!p.getCliente().possuiDebitosPendentes())){
+        boolean valorMinimoAtingido = pedido.getValorTotal() > VALOR_MINIMO;
+        boolean tempoFidelidade = pedido.getCliente().getTempoFidelidade() > TEMPO_FIDELIDADE_MINIMO;
+        boolean navegadorCompativel = navegador == TipoNavegador.CHROME;
+        boolean semDebitos = !pedido.getCliente().possuiDebitosPendentes();
 
+        return valorMinimoAtingido && tempoFidelidade && navegadorCompativel && semDebitos;
+    }
+
+    public void finalizarCompra(Pedido pedido, TipoNavegador navegador) {
+
+        if (clienteElegivel(pedido, navegador)) {
             System.out.println("Cliente elegível para checkout VIP.");
         }
 
-        double precoBase = p.getQuantidade() * p.getPrecoUnitario();
+        double precoBase = pedido.getQuantidade() * pedido.getPrecoUnitario();
         double fatorDesconto;
 
         if (precoBase > 1000) {
@@ -20,10 +31,10 @@ public class CheckoutService {
 
         double precoFinal = precoComDesconto;
 
-        p.setValorFinal(precoFinal);
-        p.setStatus("FECHADO");
+        pedido.setValorFinal(precoFinal);
+        pedido.setStatus("FECHADO");
 
-        System.out.println("Compra finalizada: " + p.getValorFinal());
-        System.out.println("Email enviado para: " + p.getCliente().getEmail());
+        System.out.println("Compra finalizada: " + pedido.getValorFinal());
+        System.out.println("Email enviado para: " + pedido.getCliente().getEmail());
     }
 }
