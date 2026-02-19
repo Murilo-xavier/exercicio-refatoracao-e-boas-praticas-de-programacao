@@ -17,8 +17,8 @@ public class Funcionario {
     public int getMesesTrabalhados() {
         return MesesTrabalhados;
     }
-    public void setMesesTrabalhados(int tempoDeCasaMeses) {
-        this.MesesTrabalhados = tempoDeCasaMeses;
+    public void setMesesTrabalhados(int totalMesesTrabalhados) {
+        this.MesesTrabalhados = totalMesesTrabalhados;
     }
     public double getMetaParcialPorcentagem() {
         return metaParcialPorcentagem;
