@@ -1,11 +1,8 @@
 public class CheckoutService {
 
-    public void finalizarCompra(Pedido p, String navegador) {
+    public void finalizarCompra(Pedido p, TipoNavegador navegador) {
 
-        if ((p.getValorTotal() > 500.00) &&
-            (p.getCliente().getTempoFidelidade() > 2) &&
-            (navegador.toUpperCase().indexOf("CHROME") > -1) &&
-            (!p.getCliente().possuiDebitosPendentes())) {
+        if ((p.getValorTotal() > 500.00) && (p.getCliente().getTempoFidelidade() > 2) && (navegador == TipoNavegador.CHROME) && (!p.getCliente().possuiDebitosPendentes())){
 
             System.out.println("Cliente elegível para checkout VIP.");
         }
