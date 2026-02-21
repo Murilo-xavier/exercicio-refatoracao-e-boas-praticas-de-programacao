@@ -1,10 +1,10 @@
 public class CheckoutService {
-    private final double VALOR_MINIMO = 500.0;
+    private final double VALOR_MINIMO_DA_COMPRA = 500.0;
     private final int TEMPO_FIDELIDADE_MINIMO = 2;
 
     private boolean clienteElegivel(Pedido pedido, TipoNavegador navegador) {
 
-        boolean valorMinimoAtingido = pedido.getValorTotal() > VALOR_MINIMO;
+        boolean valorMinimoAtingido = pedido.getValorTotal() > VALOR_MINIMO_DA_COMPRA;
         boolean tempoFidelidade = pedido.getCliente().getTempoFidelidade() > TEMPO_FIDELIDADE_MINIMO;
         boolean navegadorCompativel = navegador == TipoNavegador.CHROME;
         boolean semDebitos = !pedido.getCliente().possuiDebitosPendentes();
