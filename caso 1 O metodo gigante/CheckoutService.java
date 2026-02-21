@@ -1,6 +1,8 @@
 public class CheckoutService {
     private final double VALOR_MINIMO_DA_COMPRA = 500.0;
     private final int TEMPO_FIDELIDADE_MINIMO = 2;
+    private final float DESCONTO_VIP = 0.90f;
+    private final float DESCONTO_REGULAR = 0.98f;
 
     private boolean clienteElegivel(Pedido pedido, TipoNavegador navegador) {
 
@@ -11,11 +13,24 @@ public class CheckoutService {
 
         return valorMinimoAtingido && tempoFidelidade && navegadorCompativel && semDebitos;
     }
+
     private double calcularPrecoBase(Pedido pedido) {
         double precoBase = pedido.getQuantidade() * pedido.getPrecoUnitario();
         return precoBase;
     }
 
+    private double aplicarDesconto(double precoBase) {
+        double fatorDesconto;
+
+        if (precoBase > 1000) {
+            fatorDesconto = DESCONTO_VIP;
+        } else {
+            fatorDesconto = DESCONTO_REGULAR;
+        }
+        
+        return precoBase * fatorDesconto;
+    }
+    
     public void finalizarCompra(Pedido pedido, TipoNavegador navegador) {
 
         if (clienteElegivel(pedido, navegador)) {
