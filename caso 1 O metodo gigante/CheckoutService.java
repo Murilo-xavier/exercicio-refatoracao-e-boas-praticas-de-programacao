@@ -1,13 +1,13 @@
 public class CheckoutService {
-    private final double VALOR_MINIMO_DA_COMPRA = 500.0;
-    private final int TEMPO_FIDELIDADE_MINIMO = 2;
-    private final float DESCONTO_VIP = 0.90f;
-    private final float DESCONTO_REGULAR = 0.98f;
+    private static final double VALOR_MINIMO_DA_COMPRA = 500.0;
+    private static final int TEMPO_FIDELIDADE_MINIMO = 2;
+    private static final double DESCONTO_VIP = 0.90f;
+    private final double DESCONTO_REGULAR = 0.98f;
 
     private boolean clienteElegivel(Pedido pedido, TipoNavegador navegador) {
 
-        boolean valorMinimoAtingido = pedido.getValorTotal() > VALOR_MINIMO_DA_COMPRA;
-        boolean tempoFidelidade = pedido.getCliente().getTempoFidelidade() > TEMPO_FIDELIDADE_MINIMO;
+        boolean valorMinimoAtingido = pedido.getValorTotal() >= VALOR_MINIMO_DA_COMPRA;
+        boolean tempoFidelidade = pedido.getCliente().getTempoFidelidade() >= TEMPO_FIDELIDADE_MINIMO;
         boolean navegadorCompativel = navegador == TipoNavegador.CHROME;
         boolean semDebitos = !pedido.getCliente().possuiDebitosPendentes();
 
@@ -36,13 +36,15 @@ public class CheckoutService {
     }
     
     public void finalizarCompra(Pedido pedido, TipoNavegador navegador) {
+        double precoBase = calcularPrecoBase(pedido);
+        double precoFinal = precoBase;
 
         if (clienteElegivel(pedido, navegador)) {
             System.out.println("Cliente elegível para checkout VIP.");
+            precoFinal = aplicarDesconto(precoBase);
+        }else {
+            System.out.println("Cliente não elegível para checkout VIP. Preço normal aplicado.");
         }
-
-        double precoBase = calcularPrecoBase(pedido);
-        double precoFinal = aplicarDesconto(precoBase);
 
         pedido.setValorFinal(precoFinal);
         pedido.setStatus("FECHADO");
