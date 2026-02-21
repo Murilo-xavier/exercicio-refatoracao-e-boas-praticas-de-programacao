@@ -27,8 +27,12 @@ public class CheckoutService {
         } else {
             fatorDesconto = DESCONTO_REGULAR;
         }
-        
+
         return precoBase * fatorDesconto;
+    }
+
+    private void notificarClienteEmail(Pedido pedido) {
+        System.out.println("Email de confirmação enviado para: " + pedido.getCliente().getEmail());
     }
     
     public void finalizarCompra(Pedido pedido, TipoNavegador navegador) {
@@ -37,23 +41,13 @@ public class CheckoutService {
             System.out.println("Cliente elegível para checkout VIP.");
         }
 
-        double precoBase = pedido.getQuantidade() * pedido.getPrecoUnitario();
-        double fatorDesconto;
-
-        if (precoBase > 1000) {
-            fatorDesconto = 0.90;
-        } else {
-            fatorDesconto = 0.98;
-        }
-
-        double precoComDesconto = precoBase * fatorDesconto;
-
-        double precoFinal = precoComDesconto;
+        double precoBase = calcularPrecoBase(pedido);
+        double precoFinal = aplicarDesconto(precoBase);
 
         pedido.setValorFinal(precoFinal);
         pedido.setStatus("FECHADO");
 
         System.out.println("Compra finalizada: " + pedido.getValorFinal());
-        System.out.println("Email enviado para: " + pedido.getCliente().getEmail());
+        notificarClienteEmail(pedido);
     }
 }
