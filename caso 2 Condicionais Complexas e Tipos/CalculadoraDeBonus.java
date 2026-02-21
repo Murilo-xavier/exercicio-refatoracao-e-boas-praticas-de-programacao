@@ -1,7 +1,7 @@
 public class CalculadoraDeBonus {
     
-    private int TEMPO_MINIMO_MES = 6;
-    private double META_MINIMA = 0.80;
+    private static final int TEMPO_MINIMO_MES = 6;
+    private static final double META_MINIMA = 0.80;
 
     public double calcularBonusAnual (Funcionario funcionario){
         double bonus = 0.0;
