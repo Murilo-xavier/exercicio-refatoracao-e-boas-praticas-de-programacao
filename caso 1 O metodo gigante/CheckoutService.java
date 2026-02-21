@@ -11,6 +11,10 @@ public class CheckoutService {
 
         return valorMinimoAtingido && tempoFidelidade && navegadorCompativel && semDebitos;
     }
+    private double calcularPrecoBase(Pedido pedido) {
+        double precoBase = pedido.getQuantidade() * pedido.getPrecoUnitario();
+        return precoBase;
+    }
 
     public void finalizarCompra(Pedido pedido, TipoNavegador navegador) {
 
