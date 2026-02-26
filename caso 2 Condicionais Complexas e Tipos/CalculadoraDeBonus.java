@@ -6,14 +6,19 @@ public class CalculadoraDeBonus {
     public double calcularBonusAnual (Funcionario funcionario){
         double bonus = 0.0;
 
-        boolean tempoMinimoComprido = funcionario.getMesesTrabalhados() > TEMPO_MINIMO_MES;
-        boolean bateuMeta = funcionario.getMetaParcialPorcentagem() >= META_MINIMA;
-        boolean semAdvertencia = !funcionario.isPossuiAdivertencia();
+        try{
+            boolean tempoMinimoComprido = funcionario.getMesesTrabalhados() > TEMPO_MINIMO_MES;
+            boolean bateuMeta = funcionario.getMetaParcialPorcentagem() >= META_MINIMA;
+            boolean semAdvertencia = !funcionario.isPossuiAdivertencia();
 
-        if(tempoMinimoComprido && bateuMeta && semAdvertencia){
-            TipoCargo cargo = funcionario.getCargo();
-            bonus = funcionario.getSalario() * cargo.getMultiplicador() + cargo.getBonusFixo();
+            if(tempoMinimoComprido && bateuMeta && semAdvertencia){
+                TipoCargo cargo = funcionario.getCargo();
+                bonus = funcionario.getSalario() * cargo.getMultiplicador() + cargo.getBonusFixo();
+            }
+        }catch (NullPointerException e){
+            System.out.println("Funcionario Nulo: " + e.getMessage());
         }
+        
         return bonus;
     }
 }
